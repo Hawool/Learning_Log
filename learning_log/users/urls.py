@@ -9,4 +9,6 @@ urlpatterns = [
          name="login"),
     # Output page
     path('logout/', views.logout_view, name='logout'),
+    # Register page
+    path('register/', views.register, name='register'),
 ]
