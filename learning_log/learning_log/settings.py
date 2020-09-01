@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -25,8 +25,7 @@ SECRET_KEY = '6b1@n$dhg#683c-oo9oa%b@1lz*!^e-!*owkd3=cpp$npfco*s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -40,6 +39,8 @@ INSTALLED_APPS = [
     # My apps
     'learning_logs',
     'users',
+    # Other apps
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'learning_log.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -82,7 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -102,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -116,7 +114,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -124,3 +121,27 @@ STATIC_URL = '/static/'
 
 # My settings
 LOGIN_URL = '/login/'
+
+# Settings of django-bootstrap3
+BOOTSTRAP3 = {
+    'include_jquery': True,
+}
+
+# Heroku settings
+if os.getcwd() == '/app':
+    import dj_database_url
+
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://localhost')
+    }
+    # Support for the 'X-Forwarded-Proto' header for request.is_secure ()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # Разрешены все заголовки хостов.
+    ALLOWED_HOSTS = ['*']
+
+    # Configuring static resources
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
