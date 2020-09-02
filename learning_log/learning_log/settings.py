@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -128,20 +129,23 @@ BOOTSTRAP3 = {
 }
 
 # Heroku settings
-if os.getcwd() == '/app':
-    import dj_database_url
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
-    DATABASES = {
-        'default': dj_database_url.config(default='postgres://localhost')
-    }
-    # Support for the 'X-Forwarded-Proto' header for request.is_secure ()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Разрешены все заголовки хостов.
-    ALLOWED_HOSTS = ['*']
-
-    # Configuring static resources
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    STATIC_ROOT = 'staticfiles'
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-    )
+# if os.getcwd() == '/app':
+#     import dj_database_url
+#
+#     DATABASES = {
+#         'default': dj_database_url.config(default='postgres://localhost')
+#     }
+#     # Support for the 'X-Forwarded-Proto' header for request.is_secure ()
+#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#     # Разрешены все заголовки хостов.
+#     ALLOWED_HOSTS = ['*']
+#
+#     # Configuring static resources
+#     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#     STATIC_ROOT = 'staticfiles'
+#     STATICFILES_DIRS = (
+#         os.path.join(BASE_DIR, 'static'),
+#     )
