@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '6b1@n$dhg#683c-oo9oa%b@1lz*!^e-!*owkd3=cpp$npfco*s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['learning-log-artyoms.herokuapp.com']
 
 # Application definition
 
